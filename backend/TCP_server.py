@@ -1,7 +1,7 @@
 import socket
 
 HOST = "0.0.0.0"
-PORT = 5000
+PORT = 5005
 
 # configures IPv4 with TCP protocol
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
