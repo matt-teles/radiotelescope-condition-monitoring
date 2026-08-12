@@ -4,17 +4,29 @@ __pycache__/
 *.egg-info/
 .venv/
 venv/
+
+# --- Environment / secrets ---
 .env
+.env.*
+!.env.example
+secrets.*
+credentials.*
+*.pem
+*.key
 
 # --- PlatformIO / ESP32 ---
 .pio/
 .pioenvs/
 .piolibdeps/
 
+# PlatformIO may generate VS Code config inside the firmware project
+firmware/esp32/.vscode/
+
 # --- Build artifacts ---
 *.bin
 *.elf
 *.map
+compile_commands.json
 
 # --- IDE / editor local state ---
 .vscode/*
@@ -25,7 +37,6 @@ venv/
 # --- OS ---
 .DS_Store
 Thumbs.db
-
 
 # --- Debug ---
 logs/
