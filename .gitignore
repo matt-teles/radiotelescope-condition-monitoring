@@ -33,6 +33,7 @@ compile_commands.json
 !.vscode/extensions.json
 !.vscode/settings.json
 .idea/
+.code_workspace
 
 # --- OS ---
 .DS_Store
