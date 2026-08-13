@@ -1,5 +1,8 @@
 #pragma once
 
+#include <cstddef>
+#include <cstdint>
+
 bool initializeEthernet();
 bool connectToServer();
 
