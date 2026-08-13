@@ -1,5 +1,6 @@
 import socket
 import time
+import sys
 
 HOST = "0.0.0.0"
 PORT = 5005
@@ -17,7 +18,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
         print("connected:", addr)
 
         sample_count = 0
-        last_report = time.monotonic()
+        start_time = time.monotonic()
+        last_report = start_time
+
 
         while True:
             data = conn.recv(1024)
@@ -26,10 +29,18 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
                 break
 
             sample_count += data.count(b"\n")
+
             now = time.monotonic()
 
-            if now - last_report >= 1.0:
-                print(f"Received: {sample_count} samples/s")
+            if now - last_report >= 5.0:
+                elapsed = now - start_time
+                sample_rate = sample_count / elapsed
+                # Clear terminal and move cursor to the top-left corner.
+                print("\033[2J\033[H", end="")
 
-                sample_count = 0
+                print(f"Connected: {addr}")
+                print(f"Total samples: {sample_count}")
+                print(f"Elapsed time: {elapsed:.2f} s")
+                print(f"Average rate: {sample_rate:.2f} samples/s")
+
                 last_report = now
