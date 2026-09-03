@@ -363,4 +363,48 @@ namespace adxl
         return true;
     }
 
+    // -----------------------------------------------------------------------------
+    // Read all FIFO entries that were available when the function started.
+    // -----------------------------------------------------------------------------
+
+    bool readAvailableSamples(
+        Sample (&buffer)[FIFO_CAPACITY],
+        uint8_t &samplesRead)
+    {
+        samplesRead = 0;
+
+        // -------------------------------------------------------------------------
+        // Take a snapshot of the current FIFO depth.
+        // -------------------------------------------------------------------------
+
+        uint8_t entries;
+
+        if (!fifoEntries(entries))
+        {
+            return false;
+        }
+
+        // -------------------------------------------------------------------------
+        // Read exactly the samples that were present in that snapshot.
+        // -------------------------------------------------------------------------
+
+        for (
+            uint8_t i = 0;
+            i < entries;
+            i++)
+        {
+            if (!readRaw(
+                    buffer[i].x,
+                    buffer[i].y,
+                    buffer[i].z))
+            {
+                return false;
+            }
+
+            samplesRead++;
+        }
+
+        return true;
+    }
+
 }

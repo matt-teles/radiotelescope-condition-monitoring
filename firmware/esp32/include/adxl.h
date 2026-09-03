@@ -33,13 +33,13 @@ namespace adxl
     bool fifoEntries(
         uint8_t &entries);
 
-    bool readAvailableSamples(
-        Sample *buffer,
-        uint8_t &samplesRead);
-
     bool readRaw(
         int16_t &x,
         int16_t &y,
         int16_t &z);
+
+    bool readAvailableSamples(
+        Sample *buffer,
+        uint8_t &samplesRead);
 
 }
